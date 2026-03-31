@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "functions": {
+    "api/audio.js": {
+      "maxDuration": 60
+    },
+    "api/tts.js": {
+      "maxDuration": 60
+    },
+    "api/evolution.js": {
+      "maxDuration": 60
+    },
+    "api/*.js": {
+      "maxDuration": 30
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PATCH, DELETE",
+        "Access-Control-Allow-Headers": "Authorization, Content-Type, Accept, X-Requested-With, apikey",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "dest": "/api/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options",     "value": "DENY"    },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isis Ai Agent — Acesso</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-box">
+        <header class="login-header">
+            <span class="logo-icon">⚡</span>
+            <h1>Isis Ai Agent</h1>
+            <p>Seja bem-vindo de volta</p>
+        </header>
+
+        <div class="tab-switcher">
+            <button id="tab-login" class="active">Entrar</button>
+            <button id="tab-register">Registrar</button>
+        </div>
+
+        <!-- LOGIN -->
+        <form id="loginForm" class="auth-form active">
+            <input type="text" id="loginEmail" placeholder="Souza Produções ou seu@email.com" required>
+            <input type="password" id="loginPassword" placeholder="Sua senha master" required>
+            <button type="submit" id="loginBtn">Entrar no Painel</button>
+        </form>
+
+        <!-- REGISTRO -->
+        <form id="registerForm" class="auth-form" style="display: none;">
+            <input type="text" id="regCompany" placeholder="Nome da Empresa" required>
+            <input type="email" id="regEmail" placeholder="E-mail profissional" required>
+            <input type="password" id="regPassword" placeholder="Senha (min. 6 caracteres)" required minlength="6">
+            <button type="submit" id="regBtn">Criar Conta Grátis</button>
+        </form>
+        
+        <p id="msg" class="message-box"></p>
+
+        <footer class="login-footer">
+            <p>Desenvolvido por 
+                <a href="https://wa.me/5562991444852" target="_blank" style="color: #6366f1; text-decoration: none; font-weight: bold;">
+                    Souza Produções
+                </a>
+            </p>
+        </footer>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

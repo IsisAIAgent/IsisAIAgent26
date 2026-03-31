@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isis Ai Agent — Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="premium-theme">
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="sidebar-brand">⚡ Isis Ai Agent</div>
+            <div class="user-context">
+                <div class="user-avatar">SP</div>
+                <div class="user-info">
+                    <p id="companyName" class="company-title">...</p>
+                    <span id="companyPlan" class="plan-badge">PRO PLAN</span>
+                </div>
+            </div>
+            <nav class="side-nav">
+                <button class="nav-btn active" id="btn-dashboard" onclick="switchTab('dashboard')"><span>📊</span> Dashboard</button>
+                <button class="nav-btn" id="btn-leads" onclick="switchTab('leads')"><span>👥</span> Todos os Leads</button>
+                <button class="nav-btn" id="btn-pipeline" onclick="switchTab('pipeline')"><span>📈</span> Funil Kanban</button>
+                <button class="nav-btn" id="btn-config" onclick="switchTab('config')"><span>🔌</span> Integrações</button>
+                <hr style="border: 0; border-top: 1px solid var(--border); margin: 10px 0;">
+                <button onclick="exportarDados()" class="nav-btn" style="color:#10b981; background:none; border:none; width:100%; cursor:pointer; text-align:left;"><span>📥</span> Backup de Dados</button>
+            </nav>
+            <div class="sidebar-footer">
+                <button onclick="logout()" class="logout-link">🚪 Sair do Sistema</button>
+            </div>
+        </aside>
+
+        <main class="main-viewport">
+            <section id="tab-dashboard" class="content-tab active">
+                <header class="content-header"><h1>Visão Geral</h1><button class="refresh-circle" onclick="loadLeads()">🔄</button></header>
+                <section class="metrics-grid">
+                    <div class="m-card" onclick="setFilter('all')" style="cursor:pointer"><p>Total</p><h2 id="statTotal">0</h2></div>
+                    <div class="m-card" onclick="setFilter('novo')" style="cursor:pointer"><p>Novos</p><h2 id="statNovos" style="color:#60a5fa">0</h2></div>
+                    <div class="m-card" onclick="setFilter('em_atendimento')" style="cursor:pointer"><p>Abertos</p><h2 id="statAtendimento" style="color:#fbbf24">0</h2></div>
+                    <div class="m-card" onclick="setFilter('convertido')" style="cursor:pointer"><p>Ganhos</p><h2 id="statConvertidos" style="color:#34d399">0</h2></div>
+                </section>
+                <div class="work-area">
+                    <div class="list-container">
+                        <div class="container-head" style="padding:15px;border-bottom:1px solid var(--border);">
+                            <h3 style="margin-bottom:10px;">Buscar Lead (<span id="countCurrent">0</span>)</h3>
+                            <input 
+                                type="text" 
+                                id="searchDashboard"
+                                placeholder="🔍 Nome, número, interesse..."
+                                oninput="filterDashboard()"
+                                style="width:100%;background:#0f172a;border:1px solid rgba(255,255,255,0.12);color:#f8fafc;padding:9px 14px;border-radius:8px;font-size:13px;outline:none;box-sizing:border-box;"
+                                onfocus="this.style.borderColor='#6366f1'"
+                                onblur="this.style.borderColor='rgba(255,255,255,0.12)'"
+                            >
+                        </div>
+                        <div id="leadsList" class="scrollable-list"></div>
+                    </div>
+                    <div id="detailPanel" class="details-container"><div class="empty-view"><div class="empty-icon">📂</div><p>Selecione um lead para ver o briefing da Isis</p></div></div>
+                </div>
+            </section>
+
+            <section id="tab-leads" class="content-tab">
+                <header class="content-header"><h1>Gestão Total</h1><input type="text" id="searchLeads" placeholder="Buscar..." onkeyup="filterLeadsTable()"></header>
+                <div class="table-frame"><table class="premium-table"><thead><tr><th>Nome</th><th>WhatsApp</th><th>Status</th><th>Digital SP</th><th>Ações</th></tr></thead><tbody id="tableBody"></tbody></table></div>
+            </section>
+
+            <section id="tab-pipeline" class="content-tab">
+                <header class="content-header"><h1>Pipeline Comercial</h1></header>
+                <div class="kanban-board">
+                    <div class="kanban-col"><div class="col-title">NOVOS 🔵</div><div id="col-novo" class="col-content"></div></div>
+                    <div class="kanban-col"><div class="col-title">EM ABERTO 🟡</div><div id="col-atendimento" class="col-content"></div></div>
+                    <div class="kanban-col"><div class="col-title">FECHADOS ✅</div><div id="col-convertido" class="col-content"></div></div>
+                </div>
+            </section>
+
+            <section id="tab-config" class="content-tab">
+                <header class="content-header"><h1>Webhook</h1></header>
+                <div class="m-card" style="max-width: 600px; padding:30px;">
+                    <h3>Conexão de Dados</h3><p style="margin:15px 0; color:var(--text-muted);">Use este link no seu Typebot ou Site:</p>
+                    <input type="text" id="webhookUrl" readonly style="width:100%; background:var(--bg-deep); border:1px solid var(--border); color:#10b981; padding:15px; border-radius:10px; font-family:monospace; margin-bottom:10px;">
+                    <button onclick="copyWebhook()" style="background:var(--accent); color:white; border:none; padding:12px 25px; border-radius:10px; cursor:pointer; font-weight:bold;">Copiar URL</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>
